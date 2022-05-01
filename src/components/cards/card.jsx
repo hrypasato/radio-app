@@ -1,16 +1,26 @@
+const IMAGE_URL = 'https://picsum.photos/500';
 export const Card = ({ children, ...props }) => {
-    const { item } = props;
+  const { item, playRadio } = props;
 
-    return (
-        <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-        <div className="md:flex">
-          <div className="md:shrink-0">
-              <img className="h-48 w-full object-cover md:h-full md:w-48" src={item.favicon} alt={item.name}/>
-          </div>
-          <div class="p-8">
-            <h2 className="mt-4 font-bold text-2xl">{item.name}</h2>
-          </div>
-        </div>
+  //play radio on click card
+  const handleClick = () => {
+    const { stationuuid:id, url_resolved, url } = item;
+    const radio = {
+      id,
+      url_resolved,
+      url,
+    };
+    playRadio(radio);
+  };
+
+  return (
+    <div onClick={handleClick} className="flex flex-col items-stretch basis-1/4 bg-white rounded-lg shadow-md cursor-pointer md:flex-row md:max-w-md hover:bg-gray-100">
+      <img className="object-cover w-full h-32 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={item.favicon ? item.favicon : IMAGE_URL } alt="" />
+      <div className="flex flex-col justify-between p-4 leading-normal">
+        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900">{item.name}</h5>
+        <p className="mb-3 font-normal text-gray-700">Radio tags</p>
       </div>
-    )
+    </div>
+
+  )
 }

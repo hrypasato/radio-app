@@ -21,22 +21,21 @@ function App() {
   }, [isLoading]);
 
   return (
-    <div className="App bg-fuchsia-900 text-gray-100 w-full h-screen">
+    <div className="App">
       <header>
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-center p-10">
           Radio React App
         </h1>
-      <p>Logo</p>
       </header>
       <main>
         {
           isLoading 
           ? <div>Loading...</div>
-          : <div className="flex flex-wrap"> 
+          : <div className="flex flex-col p-10 gap-3 md:flex-row md:flex-wrap"> 
           {
               station.map((item, i) => {
                   return (
-                    <Card key={i} item={item} />
+                    <Card key={i} item={item} playRadio={console.log}/>
                   )
               }
               )
