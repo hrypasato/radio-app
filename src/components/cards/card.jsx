@@ -1,16 +1,16 @@
 const IMAGE_URL = 'https://picsum.photos/500';
 export const Card = ({ children, ...props }) => {
-  const { item, playRadio } = props;
+  const { item, selectRadio } = props;
 
   //play radio on click card
   const handleClick = () => {
-    const { stationuuid:id, url_resolved, url } = item;
+    const { name, url_resolved, url } = item;
     const radio = {
-      id,
+      name,
       url_resolved,
       url,
     };
-    playRadio(radio);
+    selectRadio(radio);
   };
 
   return (

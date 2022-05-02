@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "./components";
+import { Card, RadioPLayer } from "./components";
 
 const BASE_URL = 'https://de1.api.radio-browser.info/json/stations/'
 
@@ -9,16 +9,21 @@ const LAST_STATIONS = BASE_URL + 'lastchange/5';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [station, setStation] = useState(null);
+  const [stations, setStations] = useState(null);
+  const [currentStation, setCurrentStation] = useState(null);
 
   useEffect(() => {
-      fetch(LAST_STATIONS)
+    fetch(LAST_STATIONS)
       .then(response => response.json())
       .then(data => {
-          setStation(data);
-          setIsLoading(false);
+        setStations(data);
+        setIsLoading(false);
       })
   }, [isLoading]);
+
+  const onSelectRadio = (radio) => {
+    setCurrentStation(radio);
+  };
 
   return (
     <div className="App">
@@ -27,19 +32,20 @@ function App() {
           Radio React App
         </h1>
       </header>
+      <RadioPLayer currentRadio={currentStation}/>
       <main>
         {
-          isLoading 
-          ? <div>Loading...</div>
-          : <div className="flex flex-col p-10 gap-3 md:flex-row md:flex-wrap"> 
-          {
-              station.map((item, i) => {
+          isLoading
+            ? <div>Loading...</div>
+            : <div className="flex flex-col p-10 gap-3 md:flex-row md:flex-wrap">
+              {
+                stations.map((item, i) => {
                   return (
-                    <Card key={i} item={item} playRadio={console.log}/>
+                    <Card key={i} item={item} selectRadio={onSelectRadio} />
                   )
-              }
-              )
-          } </div>
+                }
+                )
+              } </div>
         }
       </main>
     </div>
