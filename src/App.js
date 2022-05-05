@@ -3,7 +3,7 @@ import { Card, RadioPLayer } from "./components";
 
 const BASE_URL = 'https://de1.api.radio-browser.info/json/stations/'
 
-const LAST_STATIONS = BASE_URL + 'lastchange/5';
+const LAST_STATIONS = BASE_URL + 'lastchange/25'; //get the last 25 new stations
 //const STATIONS_BY_VOTES = BASE_URL + 'topvote/5';
 //const STATIONS_BY_CLICKS = BASE_URL + 'topclick/5';
 
@@ -37,7 +37,7 @@ function App() {
         {
           isLoading
             ? <div>Loading...</div>
-            : <div className="flex flex-col p-10 gap-3 md:flex-row md:flex-wrap">
+            : <div className="flex flex-col justify-center p-10 gap-3 md:flex-row md:flex-wrap">
               {
                 stations.map((item, i) => {
                   return (
