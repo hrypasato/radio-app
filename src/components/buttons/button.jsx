@@ -1,21 +1,21 @@
 export const Button = ({ disabled, onClick, ...props}) => {
-    const { content, value } = props;
+    const { text } = props;
 
     const handleClick = (e) => {
         if (disabled) {
             e.preventDefault();
             return;
         }
-        onClick({ value });
+        onClick(e);
     };
 
     return (
         <button
-            className="mx-4 px-4 py-2 bg-sky-700 rounded-md text-md text-white disabled:opacity-75"
+            className="mx-4 px-4 py-2 bg-sky-700 rounded-md text-md text-white disabled:opacity-50"
             disabled={disabled}
             onClick={handleClick}
         >
-            {content}
+            {text}
         </button>
     );
 }
