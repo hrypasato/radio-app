@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Card, RadioPLayer } from "./components";
+import { Button, Card, RadioPLayer } from "./components";
 
-const BASE_URL = 'https://de1.api.radio-browser.info/json/stations/'
-
-const LAST_STATIONS = BASE_URL + 'lastchange/25'; //get the last 25 new stations
+const BASE_URL = 'https://de1.api.radio-browser.info/json/stations/lastchange?hidebroken=true'
+const LIMIT = 24
+//const LAST_STATIONS = BASE_URL + 'lastchange/25'; //get the last 25 new stations
 //const STATIONS_BY_VOTES = BASE_URL + 'topvote/5';
 //const STATIONS_BY_CLICKS = BASE_URL + 'topclick/5';
 
@@ -11,19 +11,26 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [stations, setStations] = useState(null);
   const [currentStation, setCurrentStation] = useState(null);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch(LAST_STATIONS)
+    const link = BASE_URL + '&offset=' + offset + '&limit=' + LIMIT;
+    fetch(link)
       .then(response => response.json())
       .then(data => {
         setStations(data);
         setIsLoading(false);
       })
-  }, [isLoading]);
+  }, [isLoading, offset]);
 
   const onSelectRadio = (radio) => {
     setCurrentStation(radio);
   };
+
+  const onClickPagination = ({value}) => {
+    const newOffset = offset + value;
+    setOffset(newOffset);
+  }
 
   return (
     <div className="App">
@@ -45,8 +52,13 @@ function App() {
                   )
                 }
                 )
-              } </div>
+              } 
+              </div>
         }
+        <div className="mt-4 flex justify-center mb-10">
+          <Button disabled={ offset <= 0 } content="Prev" value={-LIMIT} onClick={onClickPagination}/>
+          <Button content="Next" value={LIMIT} onClick={onClickPagination}/>
+        </div>
       </main>
     </div>
   );
