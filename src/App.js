@@ -27,9 +27,13 @@ function App() {
     setCurrentStation(radio);
   };
 
-  const onClickPagination = ({value}) => {
-    const newOffset = offset + value;
-    setOffset(newOffset);
+  const onClickPagination = (e) => {
+    const { textContent } = e.target;
+    if (textContent === 'Prev') {
+      setOffset(offset - LIMIT);
+    } else if (textContent === 'Next') {
+      setOffset(offset + LIMIT);
+    }
   }
 
   return (
@@ -56,8 +60,8 @@ function App() {
               </div>
         }
         <div className="mt-4 flex justify-center mb-10">
-          <Button disabled={ offset <= 0 } content="Prev" value={-LIMIT} onClick={onClickPagination}/>
-          <Button content="Next" value={LIMIT} onClick={onClickPagination}/>
+          <Button disabled={ offset <= 0 } text="Prev" onClick={onClickPagination}/>
+          <Button text="Next"  onClick={onClickPagination}/>
         </div>
       </main>
     </div>
