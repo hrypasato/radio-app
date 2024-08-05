@@ -1,32 +1,30 @@
-# Simple Radio App
+# React + TypeScript + Vite
 
-Simple Radio App is a web client of [Radio-Browser](https://www.radio-browser.info/). This project was created using [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/) and was deployed on [Netlify](https://www.netlify.com/). 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Links
-You can check demo on [simple-react-radio.netlify.app](https://simple-react-radio.netlify.app/)
+Currently, two official plugins are available:
 
-## Screenshots
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-![Home Page](/screenshots/01.png "Home Page")
+## Expanding the ESLint configuration
 
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## Requirements
+- Configure the top-level `parserOptions` property like this:
 
-For development, you will only need Node.js and a node global package, Yarn, installed in your environement.
-
-## Installation
-```bash
-git clone https://github.com/hrypasato/radio-app.git
-cd radio-app
-npm ci
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
 ```
 
-## Running the project
-```bash
-npm start
-```
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
