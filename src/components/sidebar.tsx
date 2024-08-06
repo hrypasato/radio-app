@@ -72,7 +72,12 @@ export function Sidebar({ className, playlists }: SidebarProps) {
           </div>
         </div>
         <Separator/>
+
         <div className="py-2">
+
+          {
+            /**
+             
           <h2 className="relative px-7 text-lg font-semibold tracking-tight">
             Playlists
           </h2>
@@ -105,6 +110,8 @@ export function Sidebar({ className, playlists }: SidebarProps) {
               ))}
             </div>
           </ScrollArea>
+             */
+          }
         </div>
       </div>
     </div>
