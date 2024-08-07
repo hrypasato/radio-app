@@ -8,8 +8,8 @@ export const RadioPlayer = () => {
             autoPlay={true}
             showJumpControls={false}
             customAdditionalControls={[]}
-            onPlay={e => console.log("onPlay")}
-            onError={e => console.log(e)}
+            onPlay={_ => console.log("onPlay")}
+            onError={e => console.error(e)}
             defaultDuration=""
             src="http://example.com/audio.mp3"
         // other props here

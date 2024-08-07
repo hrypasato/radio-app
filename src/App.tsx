@@ -6,13 +6,15 @@ import { Separator } from './components/ui/separator'
 import { RadioCard } from './components/radio-card'
 import { Search } from './components/search'
 import { ControlPage } from './components/control-page'
+import { useOffset } from './zustand/store'
 
 function App() {
+  const { offset } = useOffset();
   return (
     <>
       <div className="hidden md:block">
         <h2 className="text-2xl font-semibold tracking-tight text-start">
-          Radio react app
+          Radio react app {offset}
         </h2>
 
         <div className="grid lg:grid-cols-7">
