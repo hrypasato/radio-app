@@ -1,17 +1,23 @@
 import { cn } from "@/lib/utils"
+import { Image } from "@nextui-org/image";
 import { Button } from "./ui/button"
 import { ScrollArea } from "./ui/scroll-area"
 
 import { Playlist } from "../data/playlists"
-import { Globe, Home, Languages } from "lucide-react"
+import { Check, Globe, Home, Languages } from "lucide-react"
 import { Badge } from "./ui/badge"
 import { Separator } from "./ui/separator"
+import { RadioPlayer } from "./player"
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   playlists: Playlist[]
 }
 
 export function Sidebar({ className, playlists }: SidebarProps) {
+  const id = 1;
+  const url = `https://nextui-docs-v2.vercel.app/images/fruit-${id}.jpeg`;
+
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -73,7 +79,24 @@ export function Sidebar({ className, playlists }: SidebarProps) {
         </div>
         <Separator/>
 
-        <div className="py-2">
+        <div className="flex justify-center">
+        <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2" />
+            <CardContent>
+                <Image
+                    className='rounded-xl object-cover'
+                    width={180}
+                    height={120}
+                    src={url} />
+                <div className="text-xl font-bold">Radio name {id}</div>
+                <p className="text-xs text-muted-foreground">
+                    Country name
+                </p>
+            </CardContent>
+            <CardFooter>
+              <RadioPlayer/>
+            </CardFooter>
+        </Card>
 
           {
             /**
