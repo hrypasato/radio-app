@@ -6,10 +6,20 @@ import { Separator } from './components/ui/separator'
 import { RadioCard } from './components/radio-card'
 import { Search } from './components/search'
 import { ControlPage } from './components/control-page'
-import { useOffset } from './zustand/store'
+import { useOffset, useList } from './zustand/store'
+import { useEffect } from 'react'
+
 
 function App() {
   const { offset } = useOffset();
+
+  const { stations, load } = useList();
+
+  //load list of stations
+  useEffect(() => {
+    load();
+  }, [offset]);
+
   return (
     <>
       <div className="hidden md:block">
@@ -26,7 +36,7 @@ function App() {
                 <TabsContent value="music" className="border-none p-0 outline-none">
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {
-                      [1, 2, 3, 4, 5].map(i => <RadioCard key={i} id={i} />)
+                      stations.map(station => <RadioCard key={station.id} station={station} />)
                     }
                   </div>
                 </TabsContent>

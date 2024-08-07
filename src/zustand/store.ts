@@ -1,7 +1,8 @@
 import { create } from "zustand";
 
+import { Station } from "@/data/station";
 // @ts-ignore
-import { Station } from 'radio-browser-api';
+import { getStations } from "@/data/radio-api";
 
 interface OffsetState {
     offset: number
@@ -28,7 +29,7 @@ export const useStation = create<StationState>()((set) => ({
     updateStation: (newStation:Station) => set({ station: newStation })
 }))
 
-interface CardState {
+interface ListState {
     stations: Station[];
     load:() => void;
     listByName: (name:string) => void;
@@ -36,3 +37,27 @@ interface CardState {
     listByLanguage: (language:string) => void;
     listByTag: (tag:string) => void;
 }
+
+export const useList = create<ListState>()((set) => ({
+    stations:[],
+    load: async () => {
+        const response = await getStations();
+        set({ stations: response });
+    },
+    listByName: async (name:string) => {
+        //const response = await Station.searchStationByName(name);
+        //set({ stations: response });
+    },
+    listByCountry: async (country:string) => {
+        //const response = await Station.searchStationByCountry(country);
+        //set({ stations: response });
+    },
+    listByLanguage: async (language:string) => {
+        //const response = await Station.searchStationByLanguage(language);
+        //set({ stations: response });
+    },
+    listByTag: async (tag:string) => {
+        //const response = await Station.searchStationByTag(tag);
+        //set({ stations: response });
+    }
+}))

@@ -9,14 +9,16 @@ import { Badge } from "./ui/badge"
 import { Separator } from "./ui/separator"
 import { RadioPlayer } from "./player"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
+import { useStation } from "@/zustand/store";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   playlists: Playlist[]
 }
 
 export function Sidebar({ className, playlists }: SidebarProps) {
-  const id = 1;
-  const url = `https://nextui-docs-v2.vercel.app/images/fruit-${id}.jpeg`;
+  const { station } = useStation();
+
+  if(station == null) return (<></>)
 
   return (
     <div className={cn("pb-12", className)}>
@@ -28,15 +30,15 @@ export function Sidebar({ className, playlists }: SidebarProps) {
           <div className="space-y-1">
             <Button variant="ghost" className="w-full justify-start">
               <Home className="mr-2" />
-              Ecuador
+              {station.country}
             </Button>
             <Button variant="ghost" className="w-full justify-start">
               <Globe className="mr-2" />
-              www.example.com
+              {station.homepage}
             </Button>
             <Button variant="ghost" className="w-full justify-start">
               <Languages className="mr-2" />
-              English
+              {station.language}
             </Button>
           </div>
         </div>
@@ -46,9 +48,9 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             Tags
           </h2>
           <div className="space-y-1">
-            <Badge variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => console.log("Country")}>Country</Badge>
-            <Badge variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => console.log("Rock")}>Rock</Badge>
-            <Badge variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => console.log("Baladas")}>Baladas</Badge>
+            {station.tags.map((tag, index) => (
+              <Badge key={index} variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => console.log(tag)}>{tag}</Badge>
+            ))}
           </div>
         </div>
         <Separator/>
@@ -60,18 +62,18 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             <div className="flex space-between items-center">
               <div className="flex-1 text-center">
                 <div className="text-5xl font-bold tracking-tighter">
-                  5100
+                  {station.votes}
                 </div>
                 <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Calories/day
+                  Votes
                 </div>
               </div>
               <div className="flex-1 text-center">
                 <div className="text-5xl font-bold tracking-tighter">
-                  350
+                  {station.clickCount}
                 </div>
                 <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Calories/day
+                  Clicks count
                 </div>
               </div>
             </div>
@@ -87,14 +89,14 @@ export function Sidebar({ className, playlists }: SidebarProps) {
                     className='rounded-xl object-cover'
                     width={180}
                     height={120}
-                    src={url} />
-                <div className="text-xl font-bold">Radio name {id}</div>
+                    src={station.favicon ? station.favicon : "https://picsum.photos/200"} />
+                <div className="text-xl font-bold">{station.name}</div>
                 <p className="text-xs text-muted-foreground">
-                    Country name
+                    {station.country}
                 </p>
             </CardContent>
             <CardFooter>
-              <RadioPlayer/>
+              <RadioPlayer source={station.urlResolved} />
             </CardFooter>
         </Card>
 

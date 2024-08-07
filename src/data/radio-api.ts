@@ -1,11 +1,14 @@
 // @ts-ignore
-import { Station, RadioBrowserApi } from 'radio-browser-api';
+import { RadioBrowserApi } from 'radio-browser-api';
 
 const api = new RadioBrowserApi('My Radio App')
-const limit = 25;
+const limit = 20;
 
 export async function getStations() {
-
+   return await api.searchStations({
+        limit,
+        offset: 0 // this is the default - can be omited
+      });
 }
 
 export async function getStationsByName(name:string) {
@@ -39,4 +42,5 @@ export async function getStationsByTag(tag:string) {
         offset: 0 // this is the default - can be omited
       });
 }
+
 

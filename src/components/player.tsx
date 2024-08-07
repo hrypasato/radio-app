@@ -1,17 +1,18 @@
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-export const RadioPlayer = () => {
+export const RadioPlayer = ({ source = "http://example.com/audio.mp3" }) => {
 
     return (
         <AudioPlayer
-            autoPlay={true}
+        autoPlay    
+        autoPlayAfterSrcChange={true}
             showJumpControls={false}
             customAdditionalControls={[]}
             onPlay={_ => console.log("onPlay")}
             onError={e => console.error(e)}
             defaultDuration=""
-            src="http://example.com/audio.mp3"
+            src={source}
         // other props here
         />
     );
