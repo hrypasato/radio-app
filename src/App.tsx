@@ -8,6 +8,7 @@ import { Search } from './components/search'
 import { ControlPage } from './components/control-page'
 import { useOffset, useList } from './zustand/store'
 import { useEffect } from 'react'
+import { ScrollArea } from './components/ui/scroll-area'
 
 
 function App() {
@@ -34,15 +35,17 @@ function App() {
                 <Search />
                 <Separator className="my-4" />
                 <TabsContent value="music" className="border-none p-0 outline-none">
+                  <ScrollArea className="h-lvh">
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {
                       stations.map(station => <RadioCard key={station.id} station={station} />)
                     }
                   </div>
+                  </ScrollArea>
                 </TabsContent>
               </Tabs>
             </div>
-            <ControlPage/>
+            <ControlPage />
           </div>
           <Sidebar playlists={playlists} className="border-l lg:col-span-2 hidden lg:block" />
         </div>

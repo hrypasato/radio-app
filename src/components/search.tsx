@@ -7,7 +7,7 @@ export const Search = () => {
         <div className="space-between flex items-center">
             <Input className='mr-4' type="email" placeholder="Radio name" />
             <div className="ml-auto mr-4">
-                <Button type="submit">
+                <Button onClick={() => { }} type="submit">
                     <SearchIcon className="mr-2" />Search</Button>
             </div>
         </div>

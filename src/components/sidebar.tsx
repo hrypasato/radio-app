@@ -1,22 +1,28 @@
 import { cn } from "@/lib/utils"
 import { Image } from "@nextui-org/image";
 import { Button } from "./ui/button"
-import { ScrollArea } from "./ui/scroll-area"
 
 import { Playlist } from "../data/playlists"
-import { Check, Globe, Home, Languages } from "lucide-react"
+import { Globe, Home, Languages } from "lucide-react"
 import { Badge } from "./ui/badge"
 import { Separator } from "./ui/separator"
 import { RadioPlayer } from "./player"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
-import { useStation } from "@/zustand/store";
+import { useStation, useList } from "@/zustand/store";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   playlists: Playlist[]
 }
 
-export function Sidebar({ className, playlists }: SidebarProps) {
+export function Sidebar({ className }: SidebarProps) {
+  const { listByCountry, listByLanguage, listByTag } = useList();
   const { station } = useStation();
+  const language = station?station.language[0]:"en";
+
+
+  const searchByLanguage = async () => {
+    await listByLanguage(language);
+  }
 
   if(station == null) return (<></>)
 
@@ -28,7 +34,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
             Information
           </h2>
           <div className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start">
+            <Button onClick={ () => listByCountry(station.countryCode) } variant="ghost" className="w-full justify-start">
               <Home className="mr-2" />
               {station.country}
             </Button>
@@ -36,9 +42,9 @@ export function Sidebar({ className, playlists }: SidebarProps) {
               <Globe className="mr-2" />
               {station.homepage}
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button onClick={ searchByLanguage } variant="ghost" className="w-full justify-start">
               <Languages className="mr-2" />
-              {station.language}
+              {station.language[0]}
             </Button>
           </div>
         </div>
@@ -49,7 +55,7 @@ export function Sidebar({ className, playlists }: SidebarProps) {
           </h2>
           <div className="space-y-1">
             {station.tags.map((tag, index) => (
-              <Badge key={index} variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => console.log(tag)}>{tag}</Badge>
+              <Badge key={index} variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => listByTag(tag)}>{tag}</Badge>
             ))}
           </div>
         </div>
@@ -99,44 +105,6 @@ export function Sidebar({ className, playlists }: SidebarProps) {
               <RadioPlayer source={station.urlResolved} />
             </CardFooter>
         </Card>
-
-          {
-            /**
-             
-          <h2 className="relative px-7 text-lg font-semibold tracking-tight">
-            Playlists
-          </h2>
-          <ScrollArea className="h-[300px] px-1">
-            <div className="space-y-1 p-2">
-              {playlists?.map((playlist, i) => (
-                <Button
-                  key={`${playlist}-${i}`}
-                  variant="ghost"
-                  className="w-full justify-start font-normal"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mr-2 h-4 w-4"
-                  >
-                    <path d="M21 15V6" />
-                    <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                    <path d="M12 12H3" />
-                    <path d="M16 6H3" />
-                    <path d="M12 18H3" />
-                  </svg>
-                  {playlist}
-                </Button>
-              ))}
-            </div>
-          </ScrollArea>
-             */
-          }
         </div>
       </div>
     </div>

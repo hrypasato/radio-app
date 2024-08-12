@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 import { Station } from "@/data/station";
 // @ts-ignore
-import { getStations } from "@/data/radio-api";
+import { getStations, getStationsByCountry, getStationsByLanguage, getStationsByTag } from "@/data/radio-api";
 
 interface OffsetState {
     offset: number
@@ -45,19 +45,21 @@ export const useList = create<ListState>()((set) => ({
         set({ stations: response });
     },
     listByName: async (name:string) => {
-        //const response = await Station.searchStationByName(name);
-        //set({ stations: response });
+
     },
-    listByCountry: async (country:string) => {
-        //const response = await Station.searchStationByCountry(country);
-        //set({ stations: response });
+    
+    listByCountry: async (countryCode:string) => {
+        const response = await getStationsByCountry(countryCode);
+        set({ stations: response });
     },
+
     listByLanguage: async (language:string) => {
-        //const response = await Station.searchStationByLanguage(language);
-        //set({ stations: response });
+        const response = await getStationsByLanguage(language);
+        set({ stations: response });
     },
+    
     listByTag: async (tag:string) => {
-        //const response = await Station.searchStationByTag(tag);
-        //set({ stations: response });
+        const response = await getStationsByTag(tag);
+        set({ stations: response });
     }
 }))
