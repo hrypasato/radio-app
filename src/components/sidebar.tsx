@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils"
-import { Image } from "@nextui-org/image";
 import { Button } from "./ui/button"
 
-import { Playlist } from "../data/playlists"
 import { Globe, Home, Languages } from "lucide-react"
 import { Badge } from "./ui/badge"
 import { Separator } from "./ui/separator"
@@ -11,7 +9,6 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 import { useStation, useList } from "@/zustand/store";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  playlists: Playlist[]
 }
 
 export function Sidebar({ className }: SidebarProps) {
@@ -55,7 +52,7 @@ export function Sidebar({ className }: SidebarProps) {
           </h2>
           <div className="space-y-1">
             {station.tags.map((tag, index) => (
-              <Badge key={index} variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer" onClick={() => listByTag(tag)}>{tag}</Badge>
+              <Badge key={index} variant="outline" className="py-1 px-2 m-2 hover:cursor-pointer hover:bg-gray-200" onClick={() => listByTag(tag)}>{tag}</Badge>
             ))}
           </div>
         </div>
@@ -91,11 +88,11 @@ export function Sidebar({ className }: SidebarProps) {
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2" />
             <CardContent>
-                <Image
-                    className='rounded-xl object-cover'
-                    width={180}
-                    height={120}
-                    src={station.favicon ? station.favicon : "https://picsum.photos/200"} />
+              <img 
+                className="rounded-xl object-cover" 
+                src={station.favicon ? station.favicon : "https://picsum.photos/200"} 
+                width={200} 
+                height={120} alt=""/>
                 <div className="text-xl font-bold">{station.name}</div>
                 <p className="text-xs text-muted-foreground">
                     {station.country}

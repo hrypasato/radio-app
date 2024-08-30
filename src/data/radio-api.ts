@@ -4,10 +4,10 @@ import { RadioBrowserApi } from 'radio-browser-api';
 const api = new RadioBrowserApi('My Radio App')
 const limit = 20;
 
-export async function getStations() {
+export async function getStations(offset = 0) {
    return await api.searchStations({
         limit,
-        offset: 0 // this is the default - can be omited
+        offset // this is the default - can be omited
       });
 }
 

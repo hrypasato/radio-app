@@ -1,6 +1,5 @@
 import './App.css'
 import { Sidebar } from './components/sidebar'
-import { playlists } from './data/playlists'
 import { Tabs, TabsContent } from './components/ui/tabs'
 import { Separator } from './components/ui/separator'
 import { RadioCard } from './components/radio-card'
@@ -25,7 +24,7 @@ function App() {
     <>
       <div className="hidden md:block">
         <h2 className="text-2xl font-semibold tracking-tight text-start">
-          Radio react app {offset}
+          Radio react app
         </h2>
 
         <div className="grid lg:grid-cols-7">
@@ -47,7 +46,7 @@ function App() {
             </div>
             <ControlPage />
           </div>
-          <Sidebar playlists={playlists} className="border-l lg:col-span-2 hidden lg:block" />
+          <Sidebar className="border-l lg:col-span-2 hidden lg:block" />
         </div>
 
       </div>
