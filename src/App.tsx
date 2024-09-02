@@ -8,6 +8,8 @@ import { ControlPage } from './components/control-page'
 import { useOffset, useList } from './zustand/store'
 import { useEffect } from 'react'
 import { ScrollArea } from './components/ui/scroll-area'
+import { ThemeProvider } from './components/theme-provider'
+import { ModeToggle } from './components/mode-toggle'
 
 
 function App() {
@@ -21,12 +23,11 @@ function App() {
   }, [offset]);
 
   return (
-    <>
-      <div className="hidden md:block">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <h2 className="text-2xl font-semibold tracking-tight text-start">
           Radio react app
         </h2>
-
+        <ModeToggle/>
         <div className="grid lg:grid-cols-7">
           <div className="col-span-3 lg:col-span-5">
             <div className="h-full px-4 py-6 lg:px-8">
@@ -48,9 +49,7 @@ function App() {
           </div>
           <Sidebar className="border-l lg:col-span-2 hidden lg:block" />
         </div>
-
-      </div>
-    </>
+    </ThemeProvider>
   )
 }
 
