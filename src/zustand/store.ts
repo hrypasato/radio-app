@@ -13,8 +13,8 @@ interface OffsetState {
 
 export const useOffset = create<OffsetState>()((set) => ({
     offset: 0,
-    increment: () => set((state:any) => ({ offset: state.offset + 1 })),
-    decrement: () => set((state:any) => ({ offset: state.offset - 1 })),
+    increment: () => set((state:any) => ({ offset: state.offset + 20 })),
+    decrement: () => set((state:any) => ({ offset: state.offset - 20 })),
     reset: () => set((_) => ({ offset: 0 })),
 }));
 
@@ -31,7 +31,7 @@ export const useStation = create<StationState>()((set) => ({
 
 interface ListState {
     stations: Station[];
-    load:() => void;
+    load:( offset?:number ) => void;
     listByName: (name:string) => void;
     listByCountry: (country:string) => void;
     listByLanguage: (language:string) => void;
@@ -40,8 +40,8 @@ interface ListState {
 
 export const useList = create<ListState>()((set) => ({
     stations:[],
-    load: async () => {
-        const response = await getStations();
+    load: async ( offset?:number ) => {
+        const response = await getStations( offset = offset );
         set({ stations: response });
     },
 

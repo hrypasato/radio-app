@@ -23,32 +23,41 @@ function App() {
   }, [offset]);
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <h2 className="text-2xl font-semibold tracking-tight text-start">
-          Radio react app
-        </h2>
-        <ModeToggle/>
-        <div className="grid lg:grid-cols-7">
-          <div className="col-span-3 lg:col-span-5">
-            <div className="h-full px-4 py-6 lg:px-8">
-              <Tabs defaultValue="music" className="h-full space-y-6">
-                <Search />
-                <Separator className="my-4" />
-                <TabsContent value="music" className="border-none p-0 outline-none">
-                  <ScrollArea className="h-lvh">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <header>
+        <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+          <div className="flex lg:flex-1">
+            <h2 className="text-2xl font-semibold tracking-tight text-start mr-3">
+              Radio react app
+            </h2>
+            <Search />
+          </div>
+
+          <div className="flex flex-1 justify-end">
+           <ModeToggle />
+          </div>
+        </nav>
+      </header>
+      <div className="grid lg:grid-cols-7">
+        <div className="col-span-3 lg:col-span-5">
+          <div className="h-full px-4 py-6 lg:px-8">
+            <Tabs defaultValue="music" className="h-full space-y-6">
+              <Separator className="my-4" />
+              <TabsContent value="music" className="border-none p-0 outline-none">
+                <ScrollArea className="h-lvh">
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {
                       stations.map(station => <RadioCard key={station.id} station={station} />)
                     }
                   </div>
-                  </ScrollArea>
-                </TabsContent>
-              </Tabs>
-            </div>
-            <ControlPage />
+                </ScrollArea>
+              </TabsContent>
+            </Tabs>
           </div>
-          <Sidebar className="border-l lg:col-span-2 hidden lg:block" />
+          <ControlPage />
         </div>
+        <Sidebar className="border-l lg:col-span-2 hidden lg:block" />
+      </div>
     </ThemeProvider>
   )
 }

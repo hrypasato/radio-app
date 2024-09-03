@@ -40,14 +40,17 @@ export const Search = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Input className='mr-4' placeholder="Radio name" {...field} />
+                                <Input className='mr-4' placeholder="Radio name ..." {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <div className="mx-4">
-                    <Button type="submit">Submit</Button>
+                <Button onClick={() => { }} type="submit">
+                    <SearchIcon className="mr-2" />
+                    Search
+                </Button>
                 </div>
             </form>
         </Form>
